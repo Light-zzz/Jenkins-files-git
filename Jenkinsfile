@@ -9,6 +9,7 @@ stages {
       pwd 
       ls -ltr
       '''}
+  }
       stage('Access other VM')
       {
       steps{
@@ -17,7 +18,7 @@ stages {
       }
       }
     }
-  }
+  
 }
   
 }
