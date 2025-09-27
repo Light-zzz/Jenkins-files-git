@@ -18,7 +18,7 @@ pipeline {
                     sh '''
                         ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ec2-user@13.126.52.93 "sudo dnf install nginx -y"
                         ls -lrt
-                        scp -i "$SSH_KEYF_ILE" webpage.html ec2-user@13.126.52.93:/usr/share/nginx/html/index.html
+                        scp -i "$SSH_KEYF_ILE" webpage.html ec2-user@13.126.52.93:/usr/share/nginx/html/
                         ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ec2-user@13.126.52.93 "sudo systemctl restart nginx"
                     '''
                 }
