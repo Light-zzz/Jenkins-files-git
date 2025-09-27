@@ -10,7 +10,7 @@ stages {
       ls -ltr
       '''}
   }
-      stage('Access other VM')
+    stage('Access other VM')
       {
       steps{
         withwithCredentials([usernamePassword(credentialsId: 'ssh-12', keyfileVariable: 'SSH_KEY_FILE')])
@@ -18,7 +18,4 @@ stages {
       }
       }
     }
-  
-}
-  
 }
