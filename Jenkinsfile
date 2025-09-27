@@ -13,16 +13,23 @@ pipeline {
         }
 
         stage('Access other VM') {
-            steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'ssh-12', keyFileVariable: 'SSH_KEY_FILE', usernameVariable: 'SSH_USER')]) {
-                    sh '''
-                        ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ec2-user@13.126.52.93 "sudo dnf install nginx -y"
-                        ls -lrt
-                        scp -i "$SSH_KEYF_ILE" webpage.html ec2-user@13.126.52.93:/usr/share/nginx/html/
-                        ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ec2-user@13.126.52.93 "sudo systemctl restart nginx"
-                    '''
-                }
-            }
+           stage('Access other VM') {
+    steps {
+        withCredentials([sshUserPrivateKey(credentialsId: 'ssh-12', keyFileVariable: 'SSH_KEY_FILE', usernameVariable: 'SSH_USER')]) {
+            sh '''
+                # Install nginx
+                ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no $SSH_USER@13.126.52.93 "sudo dnf install nginx -y"
+
+                # Copy file
+                scp -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no webpage.html $SSH_USER@13.126.52.93:/tmp/index.html
+
+                # Move and restart nginx
+                ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no $SSH_USER@13.126.52.93 "sudo mv /tmp/index.html /usr/share/nginx/html/index.html && sudo systemctl restart nginx"
+            '''
+        }
+    }
+}
+
         }
     }
 }
