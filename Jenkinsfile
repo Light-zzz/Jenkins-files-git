@@ -14,7 +14,7 @@ pipeline {
 
         stage('Access other VM') {
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'ec2-user', keyFileVariable: 'SSH_KEY_FILE',)]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'App123', keyFileVariable: 'SSH_KEY_FILE',)]) {
                     sh '''
                         # Install nginx
                         ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ec2-user@13.126.52.93 "sudo dnf install nginx -y"
