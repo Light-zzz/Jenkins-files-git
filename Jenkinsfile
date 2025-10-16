@@ -20,10 +20,10 @@ pipeline {
                         ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.0.185.231 "sudo apt update && sudo apt install nginx -y"
 
                         # Copy file
-                        scp -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no webpage.html ubuntu@65.0.185.231:/tmp/webpage.html
+                        scp -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no webpage.html ubuntu@65.0.185.231:/tmp/
 
                         # Move and restart nginx
-                        ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.0.185.231 "sudo mv /tmp/webpage.html /usr/share/nginx/html/webpage.html && sudo systemctl restart nginx"
+                        ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.0.185.231 "sudo mv /tmp/webpage.html /usr/share/nginx/html/index.html && sudo systemctl restart nginx"
                     '''
                 }
             }
