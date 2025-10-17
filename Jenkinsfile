@@ -24,8 +24,8 @@ pipeline {
 
                         # Move and restart nginx
                         ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.2.169.198  "sudo mv /tmp/index.html /usr/share/nginx/html/index.html && sudo systemctl restart nginx"
-                      //  ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.2.169.198 "sudo mv index && sudo systemctl restart nginx"
-                    '''
+                        '''
+//                        ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.2.169.198 "sudo mv index && sudo systemctl restart nginx"
                 }
             }
         }
