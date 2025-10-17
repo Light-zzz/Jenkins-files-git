@@ -1,17 +1,15 @@
 pipeline {
     agent any
-
     stages {
         stage('Checkout SCM') {
             steps {
-                checkout scm
+                checkout scm // Cheecking GitHub Repo
                 sh '''
                     pwd 
                     ls -ltr
                 '''
             }
         }
-
         stage('Access other VM') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'WebApp', keyFileVariable: 'SSH_KEY_FILE',)]) {
@@ -25,7 +23,7 @@ pipeline {
                         # Move and restart nginx
                         ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.2.169.198  "sudo mv /tmp/index.html /var/www/html/index.html && sudo systemctl restart nginx"
                         '''
-//                        ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.2.169.198 "sudo mv index && sudo systemctl restart nginx"
+//                      ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.2.169.198 "sudo mv index && sudo systemctl restart nginx"
                 }
             }
         }
