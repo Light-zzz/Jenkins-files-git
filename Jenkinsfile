@@ -17,14 +17,14 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'WebApp', keyFileVariable: 'SSH_KEY_FILE',)]) {
                     sh '''
                         # Install nginx
-                        ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.0.185.231 "sudo apt update && sudo apt install nginx -y"
+                        ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.2.169.198 "sudo apt update && sudo apt install nginx -y"
 
                         # Copy file
-                        scp -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no webpage.html ubuntu@65.0.185.231:/tmp/index.html
+                        scp -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no webpage.html ubuntu@65.2.169.198:/tmp/index.html
 
                         # Move and restart nginx
-                        ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.0.185.231  "sudo mv /tmp/index.html /usr/share/nginx/html/index.html && sudo systemctl restart nginx"
-                      //  ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.0.185.231 "sudo mv index && sudo systemctl restart nginx"
+                        ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.2.169.198  "sudo mv /tmp/index.html /usr/share/nginx/html/index.html && sudo systemctl restart nginx"
+                      //  ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no ubuntu@65.2.169.198 "sudo mv index && sudo systemctl restart nginx"
                     '''
                 }
             }
